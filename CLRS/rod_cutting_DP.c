@@ -19,9 +19,10 @@ void rod_cutting(int n, int price[])
 		rev[i] = price[i];
 		s[i] = i + 1;
 		for (k = 0; k < i; k++) {
-			//CLRS begin with 1, but in C, index begin with 0, So, index + 1 is the real rod length.
-			//Watch out in the condition move must using < not >, because when use > it is hard to
-			//record the optimal solution.
+			/*CLRS begin with 1, but in C, index begin with 0, So, index + 1 is the real rod length.
+			**Watch out in the condition move must using < not >, because when use > it is hard to
+			**record the optimal solution.
+			**second revision: using > turn out to be find but tell that cut from long to short*/
 			rev[i] = (flag = (rev[i] < (price[k] + rev[i-k-1]))) ? (price[k] + rev[i-k-1]) : rev[i];
 			if(flag)
 				s[i] = k + 1;
