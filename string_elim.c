@@ -9,59 +9,71 @@ int erase(char line[], char re[]);
 
 int main(int argc, const char *argv[])
 {
-	int times;
+	int numofstr;
 	char line[LEN];
 	char re[LEN];
-	int goals = 0;
-	scanf("%d", &times);
-	times++;    /*increment times by 1, because after scanf times, there is a newline remain, 
+	int gg = 0;
+	scanf("%d", &numofstr);
+	int *out;
+	out  = (int *) malloc(sizeof(int) * numofstr);
+	/*numofstr++;    increment numofstr by 1, because after scanf numofstr, there is a newline remain, 
 				  ** my_getline will read newline first */
 	int length = 0;
 	char temp[LEN];
 	int onegoal = 0;
-	while(times--) {
+	int kk = 0;
+	while (kk < numofstr){
+		out[kk++] = 0;
+	}
+	kk = 0;
+	/*getchar();  remove newline */
+	while(numofstr--) {
+
+		int pos, max = 0;
 		/* read input the string */
-		if ((my_getline(line, LEN)) >= 1) {
-			goals = 0;
-			/* xiao qu ke yi xiao qu de zifu */
-			while ((onegoal = erase(line, re)) > 0) {
-				goals += onegoal;
-				printf("%s\n", re);
-				goals += erase(re, line);
-			}
-				printf("%s\n", re);
-
-			int k, max = 1;
+		if ((scanf("%s",line)) == 1) {
 			int num = 0;
+			max = 0;
+			strcpy(re, line);
+			int choose = 0;
 			length = strlen(re);
-
-            /* cha ru zifu bing jisuan zengjia de xiaoqu shu*/
-			for (k = 0; k < length; k++) {
-			 	num = 0;
-				int index = 0;
-				/* gou zao tian jia hou de zifuchuan
-				 * yuanli shi zengjia mei yi ge zifu */
-				while (index <= k) {
-					line[index] = re[index];
-					index++;
+			char add_char[3] = {'A', 'B', 'C'};
+			for (choose = 0; choose < 3; choose++){
+				/* printf("--------------enter add mode\n"); */
+				/* cha ru zifu bing jisuan zengjia de xiaoqu shu*/
+				for (gg = 0; gg < length + 1; gg++) {
+					num = 0;
+					int index = 0;
+					pos = gg;
+					/* gou zao tian jia hou de zifuchuan
+					 * yuanli shi zengjia mei yi ge zifu */
+					while (index < pos) {
+						line[index] = re[index];
+						index++;
+					}
+					line[pos] = add_char[choose]; /* zeng jia di k ge zifu */
+					/* zhan tie sheng xia de zifu dao xin de zifu shuzu li */
+					while (re[index] != '\0') {
+						line[++pos] = re[index++];
+					}
+					line[++pos] = '\0';
+					  /* printf("str is\n%s\n", line);    */
+					while ((onegoal = erase(line, temp)) > 0) { 
+						num += onegoal; 
+						/* printf("%s\n", temp);     */
+						num += erase(temp,line);
+						 /* printf("%s\n", line);    */
+					} 
+					max = num > max? num : max;
+					 /* printf("%d==========\n", max);   */
 				}
-				line[index] = re[k]; /* zeng jia di k ge zifu */
-
-				/* zhan tie sheng xia de zifu dao xin de zifu shuzu li */
-				while (re[index++] != '\0') {
-					line[index] = re[index-1];
-				}
-                line[index] = '\0';
-				while ((onegoal = erase(line, temp)) > 0) {
-					num += onegoal;
-					num += erase(temp, line);
-				}
-				max = num > max? num : max;
 			}
+			out[kk++] = max;
+		} else kk++;
+	}
+	for (numofstr = 0; numofstr < kk; numofstr++) {
+		printf("%d\n", out[numofstr]);
 
-			goals += max;
-			printf("%d\n", goals);
-		}
 	}
 	return 0;
 }
@@ -92,10 +104,12 @@ int erase(char line[], char re[])
 		}
 		if (j - i > 1){
 			goals += j - i;
+			/* while (j < len) */
+				/* re[k++] = line[j++]; */
+		   i = j; 
 		} else {
-			re[k++] = line[i];
+			re[k++] = line[i++];
 		}
-		i = j;
 	}
 	re[k] = '\0';	/* remember to add '\0' to the new string array
 					   in C, string in array must end with '\0'*/
