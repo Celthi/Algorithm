@@ -1,0 +1,44 @@
+42					line[index] = re[k];
+(gdb) n
+
+(gdb) n
+46	                line[index] = '\0';
+(gdb) n
+47					num = erase(line, temp);
+(gdb) display line
+10: line = "aa\000\000T\365\377\277\360\372\377\267\020\365\377\277\252w\376\267\300\364\377\277,\202\004\b\310\364\377\277\224\372\377\267\000\000\000\000H\313\375\267\001\000\000\000\000\000\000\000\001\000\000\000\070\371\377\267", '\000' <repeats 16 times>, "\003\000\000\000\t\000\000\000?\000\300\002\000\000\000\000T\365\377\277\310\364\377\277"
+(gdb) display re
+11: re = "a\000\377\277\254\202\004\b8\371\377\267\000\000\000\000\302\000\000\000V\315\352\267\377\377\377\377\356\364\377\277\370;ⷓ\244\344\267\000\000\000\000\000\000\312\000\001\000\000\000\211\203\004\b\237\367\377\277/\000\000\000\000\240\004\b\262\210\004\b\001\000\000\000\264\365\377\277\274\365\377\277M\246\344\267\304#\374\267\000\360\377\267k\210\004\b"
+(gdb) n
+
+Breakpoint 2, erase (line=0xbffff444 "aa", re=0x0) at /home/evan/Documents/hihocoder/string_elim.c:90
+90			i = j;
+9: goals = 2
+8: line = 0xbffff444 "aa"
+7: re = 0x0
+6: k = 0
+(gdb) n
+
+9: goals = 2
+8: line = 0xbffff444 "aa"
+7: re = 0x0
+6: k = 0
+(gdb) n
+92		re[k] = '\0';	/* remember to add '\0' to the new string array
+9: goals = 2
+8: line = 0xbffff444 "aa"
+7: re = 0x0
+6: k = 0
+(gdb) n
+
+Program received signal SIGSEGV, Segmentation fault.
+0x08048850 in erase (line=0xbffff444 "aa", re=0x0) at /home/evan/Documents/hihocoder/string_elim.c:92
+92		re[k] = '\0';	/* remember to add '\0' to the new string array
+9: goals = 2
+8: line = 0xbffff444 "aa"
+7: re = 0x0
+6: k = 0
+(gdb) n
+:
+81		for (i = 0, j = 0; i < len - 1, j < len; ) {}
+43					while (re[index++] != '\0') {}
