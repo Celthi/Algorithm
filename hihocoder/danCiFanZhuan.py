@@ -1,5 +1,5 @@
 __author__ = 'celhipc'
-
+## The code is wrong, I update it inoder to test some function and corret it in the future
 def reverseStr(string):
     string = '[::-1]'
     return string
